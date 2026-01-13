@@ -4,6 +4,7 @@ const generateBtn = document.getElementById('generate-btn');
 const MIN_NUMBER = 1;
 const MAX_NUMBER = 45;
 const DRAW_COUNT = 6;
+const SET_COUNT = 5;
 
 const generateNumbers = () => {
     const numbers = new Set();
@@ -21,15 +22,31 @@ const getNumberColor = (number) => {
     return '#b0d840'; // Green
 };
 
-const displayNumbers = (numbers) => {
+const displayNumberSets = (sets) => {
     lottoNumbersContainer.innerHTML = '';
-    numbers.forEach((number, index) => {
-        const numberDiv = document.createElement('div');
-        numberDiv.classList.add('lotto-number');
-        numberDiv.textContent = number;
-        numberDiv.style.backgroundColor = getNumberColor(number);
-        numberDiv.style.animationDelay = `${index * 160}ms`;
-        lottoNumbersContainer.appendChild(numberDiv);
+    sets.forEach((numbers, setIndex) => {
+        const setRow = document.createElement('div');
+        setRow.classList.add('lotto-set');
+
+        const setLabel = document.createElement('span');
+        setLabel.classList.add('lotto-set-label');
+        setLabel.textContent = `세트 ${setIndex + 1}`;
+        setRow.appendChild(setLabel);
+
+        const numbersWrap = document.createElement('div');
+        numbersWrap.classList.add('lotto-set-numbers');
+
+        numbers.forEach((number, index) => {
+            const numberDiv = document.createElement('div');
+            numberDiv.classList.add('lotto-number');
+            numberDiv.textContent = number;
+            numberDiv.style.backgroundColor = getNumberColor(number);
+            numberDiv.style.animationDelay = `${setIndex * 120 + index * 140}ms`;
+            numbersWrap.appendChild(numberDiv);
+        });
+
+        setRow.appendChild(numbersWrap);
+        lottoNumbersContainer.appendChild(setRow);
     });
 };
 
@@ -37,9 +54,9 @@ generateBtn.addEventListener('click', () => {
     generateBtn.classList.remove('is-bouncing');
     void generateBtn.offsetWidth;
     generateBtn.classList.add('is-bouncing');
-    const numbers = generateNumbers();
-    displayNumbers(numbers);
+    const sets = Array.from({ length: SET_COUNT }, () => generateNumbers());
+    displayNumberSets(sets);
 });
 
 // Initial generation
-displayNumbers(generateNumbers());
+displayNumberSets(Array.from({ length: SET_COUNT }, () => generateNumbers()));
