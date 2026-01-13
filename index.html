@@ -13,6 +13,64 @@
         <div class="lotto-numbers">
         </div>
         <button id="generate-btn">번호 추첨하기</button>
+        <section class="form-section">
+            <h2>제휴 문의</h2>
+            <p class="form-hint">간단한 정보를 남겨주시면 빠르게 연락드리겠습니다.</p>
+            <form class="contact-form" action="https://formspree.io/f/xykkyler" method="POST">
+                <label>
+                    이름
+                    <input type="text" name="name" required>
+                </label>
+                <label>
+                    이메일
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    전화번호
+                    <input type="tel" name="phone" required>
+                </label>
+                <label>
+                    홈페이지
+                    <input type="url" name="website" placeholder="https://">
+                </label>
+                <label>
+                    회사명
+                    <input type="text" name="company">
+                </label>
+                <fieldset class="checkbox-group">
+                    <legend>제휴 목적</legend>
+                    <label>
+                        <input type="checkbox" name="purpose[]" value="공동 프로모션">
+                        공동 프로모션
+                    </label>
+                    <label>
+                        <input type="checkbox" name="purpose[]" value="제품 제휴">
+                        제품 제휴
+                    </label>
+                    <label>
+                        <input type="checkbox" name="purpose[]" value="콘텐츠 협업">
+                        콘텐츠 협업
+                    </label>
+                    <label>
+                        <input type="checkbox" name="purpose[]" value="기타">
+                        기타
+                    </label>
+                </fieldset>
+                <label>
+                    예산
+                    <input type="number" name="budget" min="0" step="10000" placeholder="예: 3000000">
+                </label>
+                <label>
+                    일정
+                    <input type="text" name="schedule" placeholder="예: 6월 첫째 주">
+                </label>
+                <label>
+                    문의 내용
+                    <textarea name="message" rows="4" required></textarea>
+                </label>
+                <button type="submit" class="submit-btn">제휴 문의 보내기</button>
+            </form>
+        </section>
     </div>
     <script src="main.js"></script>
 </body>
