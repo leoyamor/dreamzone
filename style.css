@@ -166,6 +166,16 @@ body {
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
+.corner-flag {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    height: 3cm;
+    width: auto;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
 @keyframes pop-in {
     0% {
         transform: translateY(14px) scale(0.76);
