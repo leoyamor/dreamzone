@@ -11,6 +11,12 @@ body {
     text-align: center;
 }
 
+.lotto-hint {
+    margin: 6px 0 16px;
+    color: #5a5a5a;
+    font-size: 14px;
+}
+
 .lotto-numbers {
     display: flex;
     justify-content: center;

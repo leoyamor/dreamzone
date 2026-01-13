@@ -3,7 +3,7 @@ const generateBtn = document.getElementById('generate-btn');
 
 const MIN_NUMBER = 1;
 const MAX_NUMBER = 45;
-const DRAW_COUNT = 5;
+const DRAW_COUNT = 6;
 
 const generateNumbers = () => {
     const numbers = new Set();
