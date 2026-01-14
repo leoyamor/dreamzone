@@ -17,7 +17,7 @@
             <p class="subtitle">사진을 업로드하면 강아지상과 고양이상 중 어디에 가까운지 알려줘요.</p>
             <div class="cta-row">
                 <label class="upload-btn" for="image-input">사진 선택</label>
-                <input type="file" id="image-input" accept="image/*" hidden>
+                <input type="file" id="image-input" class="file-input" accept="image/*">
                 <button type="button" id="reset-btn">초기화</button>
             </div>
             <div class="status" id="status">사진을 올리면 바로 분석합니다.</div>
@@ -45,11 +45,11 @@
         <section class="tips">
             <div class="tip">
                 <h3>손쉬운 시작</h3>
-                <p>버튼을 누르면 모델이 로딩되고 자동으로 분석이 시작됩니다.</p>
+                <p>사진을 올리면 모델을 불러오고 자동으로 분석합니다.</p>
             </div>
             <div class="tip">
                 <h3>실시간 반영</h3>
-                <p>표정이나 각도가 바뀌면 퍼센트가 즉시 업데이트됩니다.</p>
+                <p>다른 사진을 올리면 퍼센트가 즉시 업데이트됩니다.</p>
             </div>
             <div class="tip">
                 <h3>개인정보 보호</h3>
