@@ -14,21 +14,22 @@
         <header class="hero">
             <p class="eyebrow">Teachable Machine Image Model</p>
             <h1>동물상 테스트</h1>
-            <p class="subtitle">실시간 카메라로 얼굴을 비추면 강아지상과 고양이상 중 어디에 가까운지 알려줘요.</p>
+            <p class="subtitle">사진을 업로드하면 강아지상과 고양이상 중 어디에 가까운지 알려줘요.</p>
             <div class="cta-row">
-                <button type="button" id="start-btn">테스트 시작</button>
-                <button type="button" id="stop-btn" disabled>정지</button>
+                <label class="upload-btn" for="image-input">사진 선택</label>
+                <input type="file" id="image-input" accept="image/*" hidden>
+                <button type="button" id="reset-btn">초기화</button>
             </div>
-            <div class="status" id="status">카메라 권한을 허용하면 바로 시작됩니다.</div>
+            <div class="status" id="status">사진을 올리면 바로 분석합니다.</div>
         </header>
 
         <section class="test-grid">
             <div class="card camera-card">
-                <div class="card-header">실시간 카메라</div>
-                <div id="webcam-container" class="webcam-box">
-                    <div class="placeholder">카메라 대기중</div>
+                <div class="card-header">업로드 이미지</div>
+                <div id="image-container" class="webcam-box">
+                    <div class="placeholder">이미지를 업로드해주세요</div>
                 </div>
-                <p class="hint">정면을 향하고 조명이 충분한 곳에서 테스트하세요.</p>
+                <p class="hint">정면이 잘 나온 사진일수록 결과가 정확해집니다.</p>
             </div>
             <div class="card result-card">
                 <div class="card-header">분석 결과</div>

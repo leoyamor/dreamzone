@@ -71,8 +71,8 @@ h1 {
     align-items: center;
 }
 
-#start-btn,
-#stop-btn {
+.upload-btn,
+#reset-btn {
     border: none;
     border-radius: 999px;
     padding: 12px 22px;
@@ -82,24 +82,27 @@ h1 {
     transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
 }
 
-#start-btn {
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(135deg, var(--accent), #ffb199);
     color: #1f130f;
     box-shadow: 0 16px 30px rgba(255, 122, 89, 0.3);
 }
 
-#stop-btn {
+#reset-btn {
     background: #1f130f;
     color: #fef2e7;
     box-shadow: 0 12px 26px rgba(31, 19, 15, 0.2);
 }
 
-#start-btn:hover,
-#stop-btn:hover {
+.upload-btn:hover,
+#reset-btn:hover {
     transform: translateY(-2px);
 }
 
-#stop-btn:disabled {
+#reset-btn:disabled {
     opacity: 0.45;
     cursor: not-allowed;
     transform: none;
@@ -149,6 +152,12 @@ h1 {
     justify-content: center;
     overflow: hidden;
     position: relative;
+}
+
+.webcam-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .webcam-box canvas {
