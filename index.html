@@ -3,76 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로또 6개 번호 5세트 추첨기</title>
+    <title>동물상 테스트 | 강아지상 vs 고양이상</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>로또 6개 번호 5세트 추첨기</h1>
-        <p class="lotto-hint">한 번에 5세트(각 6개 번호)가 추첨됩니다.</p>
-        <div class="lotto-numbers">
-        </div>
-        <button id="generate-btn">번호 추첨하기</button>
-        <section class="form-section">
-            <h2>제휴 문의</h2>
-            <p class="form-hint">간단한 정보를 남겨주시면 빠르게 연락드리겠습니다.</p>
-            <form class="contact-form" action="https://formspree.io/f/xykkyler" method="POST">
-                <input type="hidden" name="_redirect" value="thank-you.html">
-                <label>
-                    이름
-                    <input type="text" name="name" required>
-                </label>
-                <label>
-                    이메일
-                    <input type="email" name="email" required>
-                </label>
-                <label>
-                    전화번호
-                    <input type="tel" name="phone" required>
-                </label>
-                <label>
-                    홈페이지
-                    <input type="url" name="website" placeholder="https://">
-                </label>
-                <label>
-                    회사명
-                    <input type="text" name="company">
-                </label>
-                <fieldset class="checkbox-group">
-                    <legend>제휴 목적</legend>
-                    <label>
-                        <input type="checkbox" name="purpose[]" value="공동 프로모션">
-                        공동 프로모션
-                    </label>
-                    <label>
-                        <input type="checkbox" name="purpose[]" value="제품 제휴">
-                        제품 제휴
-                    </label>
-                    <label>
-                        <input type="checkbox" name="purpose[]" value="콘텐츠 협업">
-                        콘텐츠 협업
-                    </label>
-                    <label>
-                        <input type="checkbox" name="purpose[]" value="기타">
-                        기타
-                    </label>
-                </fieldset>
-                <label>
-                    예산
-                    <input type="number" name="budget" min="0" step="10000" placeholder="예: 3000000">
-                </label>
-                <label>
-                    일정
-                    <input type="text" name="schedule" placeholder="예: 6월 첫째 주">
-                </label>
-                <label>
-                    문의 내용
-                    <textarea name="message" rows="4" required></textarea>
-                </label>
-                <button type="submit" class="submit-btn">제휴 문의 보내기</button>
-            </form>
+    <div class="page">
+        <header class="hero">
+            <p class="eyebrow">Teachable Machine Image Model</p>
+            <h1>동물상 테스트</h1>
+            <p class="subtitle">실시간 카메라로 얼굴을 비추면 강아지상과 고양이상 중 어디에 가까운지 알려줘요.</p>
+            <div class="cta-row">
+                <button type="button" id="start-btn">테스트 시작</button>
+                <button type="button" id="stop-btn" disabled>정지</button>
+            </div>
+            <div class="status" id="status">카메라 권한을 허용하면 바로 시작됩니다.</div>
+        </header>
+
+        <section class="test-grid">
+            <div class="card camera-card">
+                <div class="card-header">실시간 카메라</div>
+                <div id="webcam-container" class="webcam-box">
+                    <div class="placeholder">카메라 대기중</div>
+                </div>
+                <p class="hint">정면을 향하고 조명이 충분한 곳에서 테스트하세요.</p>
+            </div>
+            <div class="card result-card">
+                <div class="card-header">분석 결과</div>
+                <div class="result-main">
+                    <div class="result-title" id="top-result">아직 분석 전</div>
+                    <div class="result-score" id="top-score">--%</div>
+                </div>
+                <div id="label-container" class="label-list"></div>
+                <p class="result-note">결과는 재미로만 참고해주세요.</p>
+            </div>
         </section>
+
+        <section class="tips">
+            <div class="tip">
+                <h3>손쉬운 시작</h3>
+                <p>버튼을 누르면 모델이 로딩되고 자동으로 분석이 시작됩니다.</p>
+            </div>
+            <div class="tip">
+                <h3>실시간 반영</h3>
+                <p>표정이나 각도가 바뀌면 퍼센트가 즉시 업데이트됩니다.</p>
+            </div>
+            <div class="tip">
+                <h3>개인정보 보호</h3>
+                <p>영상은 브라우저 안에서만 처리되며 서버로 전송되지 않습니다.</p>
+            </div>
+        </section>
+
+        <footer class="footer">모델 경로: <span class="mono">./my_model/</span></footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="main.js"></script>
 </body>
-</html>    
+</html>
