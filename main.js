@@ -1,17 +1,18 @@
 const MODEL_URL = "./my_model/";
 
-const imageInput = document.getElementById("image-input");
-const resetBtn = document.getElementById("reset-btn");
+const startBtn = document.getElementById("start-btn");
+const stopBtn = document.getElementById("stop-btn");
 const statusEl = document.getElementById("status");
-const imageContainer = document.getElementById("image-container");
+const webcamContainer = document.getElementById("webcam-container");
 const labelContainer = document.getElementById("label-container");
 const topResult = document.getElementById("top-result");
 const topScore = document.getElementById("top-score");
 
 let model;
 let maxPredictions = 0;
-let modelReady = false;
-let previewImage = null;
+let webcam;
+let running = false;
+let animationId = null;
 
 const setStatus = (message) => {
     statusEl.textContent = message;
@@ -58,14 +59,12 @@ const buildLabelRow = (className) => {
 };
 
 const loadModel = async () => {
-    if (modelReady) return;
     setStatus("모델을 불러오는 중...");
     const modelURL = `${MODEL_URL}model.json`;
     const metadataURL = `${MODEL_URL}metadata.json`;
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
-    modelReady = true;
-    setStatus("사진을 올리면 바로 분석합니다.");
+    setStatus("카메라를 준비하는 중...");
 };
 
 const buildLabelsFromPrediction = (prediction) => {
@@ -77,18 +76,8 @@ const buildLabelsFromPrediction = (prediction) => {
     });
 };
 
-const predictImage = async (image) => {
-    await loadModel();
-    const prediction = await model.predict(image);
-
-    const labelRows =
-        labelContainer.childElementCount === maxPredictions
-            ? Array.from(labelContainer.children).map((row) => ({
-                  row,
-                  value: row.querySelector(".label-value"),
-                  fill: row.querySelector(".label-fill"),
-              }))
-            : buildLabelsFromPrediction(prediction);
+const predictFrame = async (labelRows) => {
+    const prediction = await model.predict(webcam.canvas);
 
     let topIndex = 0;
     prediction.forEach((item, index) => {
@@ -105,52 +94,60 @@ const predictImage = async (image) => {
     topScore.textContent = formatPercent(prediction[topIndex].probability);
 };
 
-const handleFile = async (file) => {
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-        setStatus("이미지 파일만 업로드할 수 있습니다.");
-        return;
+const init = async () => {
+    if (running) return;
+    startBtn.disabled = true;
+    setStatus("모델을 불러오는 중...");
+
+    try {
+        await loadModel();
+        webcam = new tmImage.Webcam(360, 360, true);
+        await webcam.setup();
+        await webcam.play();
+
+        webcamContainer.innerHTML = "";
+        webcamContainer.appendChild(webcam.canvas);
+
+        webcam.update();
+        const initialPrediction = await model.predict(webcam.canvas);
+        const labelRows = buildLabelsFromPrediction(initialPrediction);
+
+        running = true;
+        stopBtn.disabled = false;
+        setStatus("분석 중입니다. 화면을 보면서 변화를 확인해보세요.");
+
+        const loop = async () => {
+            if (!running) return;
+            webcam.update();
+            await predictFrame(labelRows);
+            animationId = window.requestAnimationFrame(loop);
+        };
+
+        animationId = window.requestAnimationFrame(loop);
+    } catch (error) {
+        setStatus("카메라 접근을 허용하거나 모델 경로를 확인해주세요.");
+        startBtn.disabled = false;
+        console.error(error);
     }
-
-    setStatus("이미지를 불러오는 중...");
-    const imageUrl = window.URL.createObjectURL(file);
-    const image = new Image();
-    image.onload = async () => {
-        if (previewImage) {
-            previewImage.remove();
-        }
-        imageContainer.innerHTML = "";
-        imageContainer.appendChild(image);
-        previewImage = image;
-        setStatus("분석 중입니다...");
-        try {
-            await predictImage(image);
-            setStatus("분석 완료! 다른 사진도 테스트해보세요.");
-        } catch (error) {
-            setStatus("모델을 불러오거나 분석하는 중 오류가 발생했습니다.");
-            console.error(error);
-        }
-        window.URL.revokeObjectURL(imageUrl);
-    };
-    image.onerror = () => {
-        setStatus("이미지를 불러오지 못했습니다. 다시 시도해주세요.");
-        window.URL.revokeObjectURL(imageUrl);
-    };
-    image.src = imageUrl;
 };
 
-const reset = () => {
-    imageInput.value = "";
-    imageContainer.innerHTML = "<div class=\"placeholder\">이미지를 업로드해주세요</div>";
-    resetLabels();
-    setStatus("사진을 올리면 바로 분석합니다.");
+const stop = () => {
+    if (!running) return;
+    running = false;
+    stopBtn.disabled = true;
+    startBtn.disabled = false;
+    if (animationId) {
+        window.cancelAnimationFrame(animationId);
+        animationId = null;
+    }
+    if (webcam) {
+        webcam.stop();
+    }
+    setStatus("정지되었습니다. 다시 시작하려면 테스트 시작을 눌러주세요.");
 };
 
-imageInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    handleFile(file);
-});
-
-resetBtn.addEventListener("click", reset);
+startBtn.addEventListener("click", init);
+stopBtn.addEventListener("click", stop);
+window.addEventListener("beforeunload", stop);
 
 resetLabels();
