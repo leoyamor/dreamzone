@@ -1,4 +1,4 @@
-const URL = "./my_model/";
+const MODEL_URL = "./my_model/";
 
 const imageInput = document.getElementById("image-input");
 const resetBtn = document.getElementById("reset-btn");
@@ -60,8 +60,8 @@ const buildLabelRow = (className) => {
 const loadModel = async () => {
     if (modelReady) return;
     setStatus("모델을 불러오는 중...");
-    const modelURL = `${URL}model.json`;
-    const metadataURL = `${URL}metadata.json`;
+    const modelURL = `${MODEL_URL}model.json`;
+    const metadataURL = `${MODEL_URL}metadata.json`;
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
     modelReady = true;
@@ -112,7 +112,7 @@ const handleFile = async (file) => {
         return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
+    const imageUrl = window.URL.createObjectURL(file);
     const image = new Image();
     image.onload = async () => {
         if (previewImage) {
@@ -129,11 +129,11 @@ const handleFile = async (file) => {
             setStatus("모델을 불러오거나 분석하는 중 오류가 발생했습니다.");
             console.error(error);
         }
-        URL.revokeObjectURL(imageUrl);
+        window.URL.revokeObjectURL(imageUrl);
     };
     image.onerror = () => {
         setStatus("이미지를 불러오지 못했습니다. 다시 시도해주세요.");
-        URL.revokeObjectURL(imageUrl);
+        window.URL.revokeObjectURL(imageUrl);
     };
     image.src = imageUrl;
 };
