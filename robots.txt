@@ -1,0 +1,7 @@
+User-agent: Yeti
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://dreamzone.pages.dev/sitemap.xml
