@@ -125,6 +125,13 @@ h1 {
     color: var(--muted);
 }
 
+.section-title {
+    margin: 0 0 16px;
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(20px, 2.8vw, 28px);
+    color: var(--ink);
+}
+
 .test-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

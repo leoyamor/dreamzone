@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동물상 테스트 | 강아지상 vs 고양이상</title>
+    <title>동물상 테스트 | 강아지상 vs 고양이상 얼굴 분석</title>
+    <meta name="description" content="사진을 업로드하면 AI가 강아지상과 고양이상 중 어떤 인상에 가까운지 알려주는 동물상 테스트입니다. 결과는 브라우저에서만 처리됩니다.">
+    <link rel="canonical" href="https://dreamzone.pages.dev/">
+    <meta property="og:site_name" content="DreamZone">
+    <meta property="og:title" content="동물상 테스트 | 강아지상 vs 고양이상 얼굴 분석">
+    <meta property="og:description" content="사진 업로드로 강아지상/고양이상 비율을 알려주는 동물상 테스트. 브라우저에서 바로 분석됩니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:url" content="https://dreamzone.pages.dev/">
+    <meta property="og:image" content="https://dreamzone.pages.dev/lotto-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="동물상 테스트 | 강아지상 vs 고양이상 얼굴 분석">
+    <meta name="twitter:description" content="사진 업로드로 강아지상/고양이상 비율을 알려주는 동물상 테스트.">
+    <meta name="twitter:image" content="https://dreamzone.pages.dev/lotto-preview.png">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@300;400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ7H4CHS3N"></script>
     <script>
@@ -29,7 +45,7 @@
     <div class="page">
         <header class="hero">
             <p class="eyebrow">Teachable Machine Image Model</p>
-            <h1>동물상 테스트</h1>
+            <h1>동물상 테스트: 강아지상 vs 고양이상</h1>
             <p class="subtitle">사진을 업로드하면 강아지상과 고양이상 중 어디에 가까운지 알려줘요.</p>
             <div class="cta-row">
                 <label class="upload-btn" for="image-input">사진 선택</label>
@@ -39,7 +55,8 @@
             <div class="status" id="status">사진을 올리면 바로 분석합니다.</div>
         </header>
 
-        <section class="test-grid">
+        <section class="test-grid" aria-labelledby="test-heading">
+            <h2 id="test-heading" class="section-title">강아지상·고양이상 얼굴 분석 결과</h2>
             <div class="card camera-card">
                 <div class="card-header">업로드 이미지</div>
                 <div id="image-container" class="webcam-box">
@@ -58,7 +75,8 @@
             </div>
         </section>
 
-        <section class="tips">
+        <section class="tips" aria-labelledby="tips-heading">
+            <h2 id="tips-heading" class="section-title">동물상 테스트를 신뢰할 수 있는 이유</h2>
             <div class="tip">
                 <h3>손쉬운 시작</h3>
                 <p>사진을 올리면 모델을 불러오고 자동으로 분석합니다.</p>
@@ -76,8 +94,34 @@
         <footer class="footer">모델 경로: <span class="mono">./my_model/</span></footer>
     </div>
 
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "DreamZone",
+            "url": "https://dreamzone.pages.dev/",
+            "inLanguage": "ko-KR"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "동물상 테스트",
+            "url": "https://dreamzone.pages.dev/",
+            "description": "사진 업로드로 강아지상/고양이상 비율을 알려주는 동물상 테스트.",
+            "inLanguage": "ko-KR",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "DreamZone",
+                "url": "https://dreamzone.pages.dev/"
+            }
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
+
