@@ -106,7 +106,6 @@ const handleFile = async (file) => {
     setStatus("이미지를 불러오는 중...");
     const imageUrl = window.URL.createObjectURL(file);
     const image = new Image();
-    image.alt = "업로드한 사진";
     image.onload = async () => {
         if (previewImage) {
             previewImage.remove();
